@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+x64/
+Debug/
+Release/
+
+# Build output
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.exp
+
+# build folder if you have one
+build/
