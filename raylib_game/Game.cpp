@@ -14,14 +14,18 @@ void gameRun()
     Player player;
     playerInit(&player);
 
+    Renderer renderer;
+    rendererInit(&renderer);
+
     while (!WindowShouldClose())
     {
         playerUpdate(&player);
 
         BeginDrawing();
-        rendererDraw(&player, SCREEN_WIDTH, SCREEN_HEIGHT);
+        rendererDraw(&renderer, &player, SCREEN_WIDTH, SCREEN_HEIGHT);
         EndDrawing();
     }
 
+    rendererShutdown(&renderer);
     CloseWindow();
 }
