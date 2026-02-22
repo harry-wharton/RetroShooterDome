@@ -141,6 +141,8 @@ void rendererDraw(Renderer* r, const Player* p, int screenWidth, int screenHeigh
 
         float perpDist = (side == 0) ? (sideDistX - deltaDistX) : (sideDistY - deltaDistY);
 
+        r->zBuffer[col] = perpDist;
+
         int lineHeight = (int)(H / perpDist);
         int drawStart = halfH - lineHeight / 2;
         int drawEnd = halfH + lineHeight / 2;

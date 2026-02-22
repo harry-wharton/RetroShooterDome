@@ -28,6 +28,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -49,6 +52,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

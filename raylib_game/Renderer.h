@@ -20,6 +20,7 @@ typedef struct {
     Color* pixels;
     float            fpsTimer;
     int              fpsDisplay;
+    float            zBuffer[RENDER_WIDTH];  // add this
 } Renderer;
 
 void rendererInit(Renderer* r);

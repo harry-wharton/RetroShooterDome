@@ -2,6 +2,7 @@
 #include "player.h"
 #include "renderer.h"
 #include "weapon.h"
+#include "enemy.h"
 #include "ui.h"
 #include "gamestate.h"
 #include "raylib.h"
@@ -23,6 +24,10 @@ void gameRun()
     Weapon weapon;
     weaponInit(&weapon);
 
+    EnemyManager enemies;
+    enemyManagerInit(&enemies);
+    enemyManagerUpdate(&enemies);
+
     GameState state = GameState::START_MENU;
     EnableCursor();
 
@@ -38,7 +43,8 @@ void gameRun()
             else
             {
                 playerUpdate(&player);
-                weaponUpdate(&weapon, &player);
+                weaponUpdate(&weapon, &player, &enemies);
+                enemyManagerUpdate(&enemies);
             }
         }
 
@@ -52,17 +58,25 @@ void gameRun()
         else if (state == GameState::PLAYING)
         {
             rendererDraw(&renderer, &player, SCREEN_WIDTH, SCREEN_HEIGHT);
+            enemyManagerDraw(&enemies, player.x, player.y, player.angle,
+                renderer.zBuffer, RENDER_WIDTH,
+                SCREEN_WIDTH, SCREEN_HEIGHT);
             weaponDraw(&weapon, SCREEN_WIDTH, SCREEN_HEIGHT);
         }
         else if (state == GameState::PAUSED)
         {
             rendererDraw(&renderer, &player, SCREEN_WIDTH, SCREEN_HEIGHT);
+            enemyManagerDraw(&enemies, player.x, player.y, player.angle,
+                renderer.zBuffer, RENDER_WIDTH,
+                SCREEN_WIDTH, SCREEN_HEIGHT);
             weaponDraw(&weapon, SCREEN_WIDTH, SCREEN_HEIGHT);
             uiDrawPauseMenu(state, SCREEN_WIDTH, SCREEN_HEIGHT);
         }
+
         EndDrawing();
     }
 
+    enemyManagerShutdown(&enemies);
     weaponShutdown(&weapon);
     rendererShutdown(&renderer);
     CloseWindow();
