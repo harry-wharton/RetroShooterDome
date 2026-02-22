@@ -25,6 +25,9 @@
     <ClCompile Include="UI.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -43,6 +46,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

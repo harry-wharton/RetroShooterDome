@@ -1,6 +1,7 @@
 #include "game.h"
 #include "player.h"
 #include "renderer.h"
+#include "weapon.h"
 #include "ui.h"
 #include "gamestate.h"
 #include "raylib.h"
@@ -19,18 +20,17 @@ void gameRun()
     Renderer renderer;
     rendererInit(&renderer);
 
-    GameState state = GameState::START_MENU;
+    Weapon weapon;
+    weaponInit(&weapon);
 
-    // Start with cursor visible for the menu
+    GameState state = GameState::START_MENU;
     EnableCursor();
 
     while (!WindowShouldClose())
     {
-        // --- Update ---
         if (state == GameState::PLAYING)
         {
-            // Escape to pause
-            if (IsKeyPressed(KEY_P))
+            if (IsKeyPressed(KEY_ESCAPE))
             {
                 state = GameState::PAUSED;
                 EnableCursor();
@@ -38,10 +38,10 @@ void gameRun()
             else
             {
                 playerUpdate(&player);
+                weaponUpdate(&weapon, &player);
             }
         }
 
-        // --- Draw ---
         BeginDrawing();
 
         if (state == GameState::START_MENU)
@@ -52,16 +52,18 @@ void gameRun()
         else if (state == GameState::PLAYING)
         {
             rendererDraw(&renderer, &player, SCREEN_WIDTH, SCREEN_HEIGHT);
+            weaponDraw(&weapon, SCREEN_WIDTH, SCREEN_HEIGHT);
         }
         else if (state == GameState::PAUSED)
         {
-            // Draw the game world behind the pause overlay
             rendererDraw(&renderer, &player, SCREEN_WIDTH, SCREEN_HEIGHT);
+            weaponDraw(&weapon, SCREEN_WIDTH, SCREEN_HEIGHT);
             uiDrawPauseMenu(state, SCREEN_WIDTH, SCREEN_HEIGHT);
         }
         EndDrawing();
     }
 
+    weaponShutdown(&weapon);
     rendererShutdown(&renderer);
     CloseWindow();
 }
